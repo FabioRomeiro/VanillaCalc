@@ -1,0 +1,20 @@
+{
+  "name": "vanilla-front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "gulp": "node ./node_modules/gulp/bin/gulp.js",
+    "dev": "npm run gulp dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "FabioRomeiro",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.1"
+  }
+}

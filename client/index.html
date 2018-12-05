@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Vanilla Calc</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/dist/css/style.min.css">
+  </head>
+  <body>
+    <div class="vanilla-content">
+      <header class="vanilla-header">
+        <h1 class="vanilla-header__title">< vanilla-calc ></h1>
+      </header>
+
+      <div class="vanilla-info-trigger">
+        <div class="vanilla-info-trigger__arrow"></div>
+      </div>
+
+      <nav class="vanilla-nav vanilla-nav--off">
+
+      </nav>
+
+      <section class="vanilla-calculator">
+        <div class="vanilla-calculator__display">
+          <p class="vanilla-calculator__last-text" data-display="last"></p>
+          <h3 class="vanilla-calculator__actual-text" data-display="current"></h3>
+        </div>
+        <div class="vanilla-calculator__keyboard">
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="operator"
+              name="(" disabled>
+              (
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="operator"
+              name=")" disabled>
+              )
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="operator"
+              name="%" disabled>
+              %
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="cleaner"
+              name="CE">
+              CE
+            </button>
+          </div>
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              name="7">7
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              name="8">8
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              name="9">9
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="operator"
+              name="/">/
+            </button>
+          </div>
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              name="4">4
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              name="5">5
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              name="6">6
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="operator"
+              name="x">x
+            </button>
+          </div>
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              name="3">3
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              name="2">2
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              name="1">1
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="number"
+              name="-">-
+            </button>
+          </div>
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              name="0">0
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="operator"
+              name=".">.
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--equals-button"
+              type="button"
+              data-type="equals"
+              name="=">=
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="operator"
+              name="+">+
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="./dist/js/index.js"></script>
+  </body>
+</html>
