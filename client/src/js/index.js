@@ -48,6 +48,29 @@ var display = {
 };
 
 var keys = document.querySelectorAll('[data-type]');
+var click_events = document.querySelectorAll('[data-click-event]');
+var calc_body = document.querySelector('[data-calc]');;
+var history_list = document.querySelector('[data-calc-list]');
+
+click_events.forEach(function(click){
+  var attribute = click.getAttribute('data-click-event');
+
+  click.addEventListener('click', function(){
+      if (attribute === 'history') {
+        toggle_history();
+      }
+  });
+});
+
+function toggle_history() {
+  if (calc_body.getAttribute('history-on') !== null) {
+    calc_body.classList.remove('vanilla-calculator--history-mode');
+    calc_body.removeAttribute('history-on');
+    return;
+  }
+  calc_body.setAttribute('history-on', '');
+  calc_body.classList.add('vanilla-calculator--history-mode');
+}
 
 function _key_is_enabled(key) {
   return key.getAttribute('disabled') === null;
@@ -73,6 +96,10 @@ function _is_operator(key) {
     return operators.includes(key);
 }
 
+function _is_number(key) {
+    return numbers.includes(key);
+}
+
 function _split_operation(operation_string) {
     var split_operation = [];
     var slice_index = 0;
@@ -91,10 +118,51 @@ function _split_operation(operation_string) {
     return split_operation;
 }
 
+function regist_operation(op, ans) {
+
+    var today = new Date();
+
+    var date = today.getDate() +
+               '/' + today.getMonth() +
+               '/' + today.getFullYear() +
+               ' - ' + today.getHours() +
+               ':' + today.getMinutes();
+
+    var dateText = document
+                    .createElement('span')
+                    .classList.add('item-date')
+                    .textContent = date;
+
+    var calcText = document
+                    .createElement('span')
+                    .classList.add('item-calc')
+                    .textContent = op + ' = ' + ans;
+
+    var li = document
+              .createElement('li')
+              .classList
+              .add('calculation-list__item')
+              .appendChild(dateText)
+              .appendChild(calcText);
+
+    history_list.appendChild(li);
+}
+
+function _already_has_decimal() {
+  for (var i = operation.length - 1; i > 0; i--) {
+    if (_is_operator(operation[i])) break;
+    else if (operation[i] === '.') return true;
+  }
+  return false;
+}
+
 function valid_operation(type, key) {
-  if ((_is_operator(key) && _is_operator(operation[operation.length - 1])) ||
+  var last_key = operation[operation.length - 1];
+
+  if ((_is_operator(key) && _is_operator(last_key)) ||
       (!operation && (key === '/' || key === 'x')) ||
-      (key === '0' && operation[operation.length - 1] === '/')){
+      (key === '0' && last_key === '/') ||
+      (key === '.' && (!_is_number(last_key) || last_key === '.' || _already_has_decimal()))){
     return false;
   }
   return true;
@@ -155,6 +223,7 @@ function process_digit() {
     answer = calculate(operation);
     _update_display('last_operation', operation);
     _update_display('current_operation', answer);
+    regist_operation(operation, answer);
     operation = "";
     answered = true;
   }
@@ -193,6 +262,10 @@ function _get_keytype_by_key(typed_key) {
 maping_numbers();
 
 document.addEventListener('keydown', function(e) {
+
+  if (e.keyCode === 72) {
+    return toggle_history();
+  }
 
   key = _get_key_by_keycode(operators_key_map, e.keyCode) || _get_key_by_keycode(numbers_key_map, e.keyCode);
   key_type = _get_keytype_by_key(key);

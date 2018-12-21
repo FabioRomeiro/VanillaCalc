@@ -31,16 +31,6 @@ body {
   animation: extend 1s ease-in-out forwards;
 }
 
-
-@media (max-width:360px) {
-  .vanilla-header {
-      border-bottom: solid 2px #fff;
-  }
-  .vanilla-header__title {
-    font-size: 28px;
-  }
-}
-
 .vanilla-content {
 
   width: 90%;
@@ -78,7 +68,10 @@ body {
 
 .vanilla-calculator {
 
+  position: relative;
+
   width: 90%;
+  height: 570px;
   max-width: 544px;
 
   margin: 0 auto 24px auto;
@@ -87,6 +80,64 @@ body {
   background: #f2f2f2;
 
   border-radius: 5px;
+}
+
+.vanilla-calculator__history-button {
+
+  position: absolute;
+  right: -35px;
+  cursor: pointer;
+
+  width: 35px;
+  height: 40px;
+
+  background: #f2f2f2;
+  background-image: url('../assets/images/history-clock-button.png');
+  background-size: 25px;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  border-radius: 0 8px 8px 0;
+}
+
+.vanilla-calculator__history-display {
+
+  display: none;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: #D2DAEF;
+
+  border-radius: 5px;
+}
+
+.calculation-list {
+  padding: 16px;
+  max-height: 537px;
+  overflow: auto;
+}
+
+.calculation-list__item {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 24px;
+
+  color: #000;
+  font-size: 26px;
+  text-align: right;
+}
+.calculation-list__item .item-date {
+
+  color: #9b9b9b;
+  font-size: 16px;
+}
+
+.calculation-list__item:last-child {
+  margin: 0;
 }
 
 .vanilla-calculator__display {
@@ -157,13 +208,6 @@ body {
   cursor: auto;
 }
 
-@media (max-width:360px) {
-  .vanilla-calculator__button {
-    height: 46px;
-    font-size: 20px;
-  }
-}
-
 .vanilla-calculator__button:last-child {
   margin: 0;
 }
@@ -192,4 +236,36 @@ body {
 }
 .vanilla-calculator--equals-button:hover {
   background-color: #00288D;
+}
+
+.vanilla-calculator.vanilla-calculator--history-mode .vanilla-calculator__display,
+.vanilla-calculator.vanilla-calculator--history-mode .vanilla-calculator__keyboard {
+  display: none;
+}
+
+.vanilla-calculator.vanilla-calculator--history-mode .vanilla-calculator__history-display {
+  display: block;
+}
+
+@media (max-width:360px) {
+
+  .vanilla-header {
+      border-bottom: solid 2px #fff;
+  }
+  .vanilla-header__title {
+    font-size: 28px;
+  }
+
+  .vanilla-calculator {
+    height: 440px;
+  }
+
+  .calculation-list {
+    max-height: 406px;
+  }
+
+  .vanilla-calculator__button {
+    height: 46px;
+    font-size: 20px;
+  }
 }

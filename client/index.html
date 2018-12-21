@@ -20,39 +20,51 @@
 
       </nav>
 
-      <section class="vanilla-calculator">
+      <section class="vanilla-calculator" data-calc>
+        <div class="vanilla-calculator__history-button" data-click-event="history"></div>
+
+        <div class="vanilla-calculator__history-display">
+          <ul class="calculation-list" data-calc-list>
+            <li class="calculation-list__item">
+              <span class="item-date">02/03/2018 - 16:54</span>
+              <span class="item-calc">9+8 = 17</span>
+            </li>
+          </ul>
+        </div>
+
         <div class="vanilla-calculator__display">
           <p class="vanilla-calculator__last-text" data-display="last"></p>
           <h3 class="vanilla-calculator__actual-text" data-display="current"></h3>
         </div>
+
         <div class="vanilla-calculator__keyboard">
           <div class="vanilla-calculator__keyline">
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="operator"
-              name="(" disabled>
+              onclick="calculationController.setInput('(')" disabled>
               (
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="operator"
-              name=")" disabled>
+              onclick="calculationController.setInput(')')" disabled>
               )
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="operator"
-              name="%" disabled>
+              onclick="calculationController.setInput('%')" disabled>
               %
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="cleaner"
-              name="CE">
+              onclick="calculationController.setInput('C')E">
               CE
             </button>
           </div>
@@ -61,25 +73,25 @@
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              name="7">7
+              onclick="calculationController.setInput('7')">7
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              name="8">8
+              onclick="calculationController.setInput('8')">8
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              name="9">9
+              onclick="calculationController.setInput('9')">9
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="operator"
-              name="/">/
+              onclick="calculationController.setInput('/')">/
             </button>
           </div>
           <div class="vanilla-calculator__keyline">
@@ -87,25 +99,25 @@
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              name="4">4
+              onclick="calculationController.setInput('4')">4
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              name="5">5
+              onclick="calculationController.setInput('5')">5
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              name="6">6
+              onclick="calculationController.setInput('6')">6
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="operator"
-              name="x">x
+              onclick="calculationController.setInput('x')">x
             </button>
           </div>
           <div class="vanilla-calculator__keyline">
@@ -113,25 +125,25 @@
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              name="3">3
+              onclick="calculationController.setInput('3')">3
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              name="2">2
+              onclick="calculationController.setInput('2')">2
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              name="1">1
+              onclick="calculationController.setInput('1')">1
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="operator"
-              name="-">-
+              onclick="calculationController.setInput('-')">-
             </button>
           </div>
           <div class="vanilla-calculator__keyline">
@@ -139,30 +151,35 @@
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              name="0">0
+              onclick="calculationController.setInput('0')">0
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              name=".">.
+              onclick="calculationController.setInput('.')">.
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--equals-button"
               type="button"
               data-type="equals"
-              name="=">=
+              onclick="calculationController.setInput('=')">=
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="operator"
-              name="+">+
+              onclick="calculationController.setInput('+')">+
             </button>
           </div>
         </div>
       </section>
     </div>
-    <script src="./dist/js/index.js"></script>
+    <!-- <script src="./dist/js/index.js"></script> -->
+    <script src="./dist/js/app/models/Calculation.js"></script>
+    <script src="./dist/js/app/controllers/CalculationController.js"></script>
+    <script type="text/javascript">
+      let calculationController = new CalculationController();
+    </script>
   </body>
 </html>
