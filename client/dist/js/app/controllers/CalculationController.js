@@ -2,62 +2,83 @@ class CalculationController {
 
    constructor(){
       // let $ = document.querySelector.bind(document);
+      this.Helper = new CalculationHelper();
+      this._listCalculation = new ListCalculations();
+      this._expression = '';
+      this._result = '';
 
-      this._mapKeys();
       const thisClass = this;
       document.addEventListener('keydown', function(e) {
-
-        let key = thisClass._getCalculatorKeyByCode(e.keyCode);
-        if (key)
-            thisClass._processKey(key);
-
-        // thisClass._increases(e.keyCode);
+        let key = thisClass.Helper.getCalculatorKeyByCode(e.keyCode);
+        if (key) thisClass.processKey(key);
       });
    }
 
-   _mapKeys() {
+   get expression() {
+     return this._expression;
+   }
 
-     this.keyMap = {
-       '/': [111,191],
-       'x': [88,106],
-       '-': [109,189],
-       '+': [107,16+187],
-       '=': [187,13],
-       'CE': [8],
-       '.': [110,190,188],
-       'H': [72]
-     };
+   get result() {
+     return this._result;
+   }
 
-     let cont = [48,96];
-     for (let i = 0; i < 10; i++) {
-       this.keyMap[i] = [cont[0], cont[1]];
-       cont[0]++;
-       cont[1]++;
+   resetFields() {
+     this._expression = '';
+     this._result = '';
+   }
+
+   incrementExpression(key) {
+     this._expression += key;
+   }
+
+   defineResults(result) {
+     this._result = result;
+   }
+
+   calculate() {
+     let operation = this.Helper.splitExpression(this.expression);
+     let operators = this.Helper.getOperators();
+     let res = Array.from(operation);
+     for (var i = 0; i < operators.length; i++) {
+       while (res.includes(operators[i])) {
+        let operatorIndex = res.indexOf(operators[i]);
+        if (operators[i] === '/') {
+          res[operatorIndex-1] = parseFloat(res[operatorIndex-1]) / parseFloat(res[operatorIndex + 1]);
+        } else if (operators[i] === 'x') {
+          res[operatorIndex-1] = parseFloat(res[operatorIndex-1]) * parseFloat(res[operatorIndex + 1]);
+        } else if (operators[i] === '-') {
+          res[operatorIndex-1] = parseFloat(res[operatorIndex-1]) - parseFloat(res[operatorIndex + 1]);
+        } else if (operators[i] === '+') {
+          res[operatorIndex-1] = parseFloat(res[operatorIndex-1]) + parseFloat(res[operatorIndex + 1]);
+        }
+        res.splice(operatorIndex,2);
+      }
      }
 
+     return res[0];
    }
 
-   _getCalculatorKeyByCode(code) {
+   processKey(key) {
 
-     let calculatorKeys = Object.keys(this.keyMap);
-     let keysValues = Object.values(this.keyMap);
+      if (!this.Helper.validade(key, this.expression))
+        return;
 
-     for (let i = 0; i < keysValues.length; i++) {
-       if (keysValues[i].includes(code))
-        return calculatorKeys[i];
-     }
+      if (this.Helper.isEquals(key))
+        return this.concludeCalculation()
 
-     return undefined;
+      this.incrementExpression(key);
    }
 
-   _processKey(key) {
-     this.setInput(key);
+   saveCalculation() {
+     let calculation = new Calculation(new Date(), this.expression, this.result);
+     this._listCalculation.add(calculation);
+     console.log(this._listCalculation.calculations);
    }
 
-   _increases(digit) {
-   }
-
-   setInput(input) {
-     console.log(input);
+   concludeCalculation() {
+     let answer = this.calculate();
+     this.defineResults(answer);
+     this.saveCalculation();
+     this.resetFields();
    }
 }

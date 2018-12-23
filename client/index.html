@@ -43,28 +43,28 @@
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="operator"
-              onclick="calculationController.setInput('(')" disabled>
+              onclick="calculationController.processKey('(')" disabled>
               (
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="operator"
-              onclick="calculationController.setInput(')')" disabled>
+              onclick="calculationController.processKey(')')" disabled>
               )
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="operator"
-              onclick="calculationController.setInput('%')" disabled>
+              onclick="calculationController.processKey('%')" disabled>
               %
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="cleaner"
-              onclick="calculationController.setInput('C')E">
+              onclick="calculationController.processKey('CE')">
               CE
             </button>
           </div>
@@ -73,25 +73,25 @@
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              onclick="calculationController.setInput('7')">7
+              onclick="calculationController.processKey('7')">7
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              onclick="calculationController.setInput('8')">8
+              onclick="calculationController.processKey('8')">8
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              onclick="calculationController.setInput('9')">9
+              onclick="calculationController.processKey('9')">9
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="operator"
-              onclick="calculationController.setInput('/')">/
+              onclick="calculationController.processKey('/')">/
             </button>
           </div>
           <div class="vanilla-calculator__keyline">
@@ -99,25 +99,25 @@
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              onclick="calculationController.setInput('4')">4
+              onclick="calculationController.processKey('4')">4
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              onclick="calculationController.setInput('5')">5
+              onclick="calculationController.processKey('5')">5
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              onclick="calculationController.setInput('6')">6
+              onclick="calculationController.processKey('6')">6
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="operator"
-              onclick="calculationController.setInput('x')">x
+              onclick="calculationController.processKey('x')">x
             </button>
           </div>
           <div class="vanilla-calculator__keyline">
@@ -125,25 +125,25 @@
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              onclick="calculationController.setInput('3')">3
+              onclick="calculationController.processKey('3')">3
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              onclick="calculationController.setInput('2')">2
+              onclick="calculationController.processKey('2')">2
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              onclick="calculationController.setInput('1')">1
+              onclick="calculationController.processKey('1')">1
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="operator"
-              onclick="calculationController.setInput('-')">-
+              onclick="calculationController.processKey('-')">-
             </button>
           </div>
           <div class="vanilla-calculator__keyline">
@@ -151,25 +151,25 @@
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              onclick="calculationController.setInput('0')">0
+              onclick="calculationController.processKey('0')">0
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
               data-type="number"
-              onclick="calculationController.setInput('.')">.
+              onclick="calculationController.processKey('.')">.
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--equals-button"
               type="button"
               data-type="equals"
-              onclick="calculationController.setInput('=')">=
+              onclick="calculationController.processKey('=')">=
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
               data-type="operator"
-              onclick="calculationController.setInput('+')">+
+              onclick="calculationController.processKey('+')">+
             </button>
           </div>
         </div>
@@ -178,6 +178,8 @@
     <!-- <script src="./dist/js/index.js"></script> -->
     <script src="./dist/js/app/models/Calculation.js"></script>
     <script src="./dist/js/app/controllers/CalculationController.js"></script>
+    <script src="./dist/js/app/helpers/CalculationHelper.js"></script>
+    <script src="./dist/js/app/models/ListCalculations.js"></script>
     <script type="text/javascript">
       let calculationController = new CalculationController();
     </script>
