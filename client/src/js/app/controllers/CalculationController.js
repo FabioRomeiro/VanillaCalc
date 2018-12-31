@@ -1,42 +1,72 @@
 class CalculationController {
 
    constructor(){
-      // let $ = document.querySelector.bind(document);
+      
+      let $ = document.querySelector.bind(document);
+      this._answered = false;
+      this._calculatorBody = $('[data-calc]');
+      
       this.Helper = new CalculationHelper();
-      this._listCalculation = new ListCalculations();
-      this._expression = '';
-      this._result = '';
+      this._service = new CalculationService();
+      this._calculationModel = new DefaultCalculation(); 
+      this._calculationView = new CalculationView($('[data-calc-history]'));
 
-      const thisClass = this;
-      document.addEventListener('keydown', function(e) {
-        let key = thisClass.Helper.getCalculatorKeyByCode(e.keyCode);
-        if (key) thisClass.processKey(key);
+      this._listCalculation = new Bind(
+        new ListCalculations(),
+        this._calculationView,
+        'add', 'remove', 'sortByDate'
+      );
+
+      this.importCalculations();
+
+      this._display = new Bind(
+        new Display(this._calculationModel.expression, this._calculationModel.result),
+        new DisplayView($('[data-display]')),
+        'addToLast', 'addToCurrent'
+      );
+
+      document.addEventListener('keydown', e => {
+        let key = this.Helper.getCalculatorKeyByCode(e.keyCode);
+        if (key) this.processKey(key);
       });
    }
 
    get expression() {
-     return this._expression;
+     return this._calculationModel.expression;
    }
 
    get result() {
-     return this._result;
+     return this._calculationModel.result;
+   }
+
+   importCalculations() {
+
+      this._service.requestCalculations()
+        .then(allCalculations => 
+            allCalculations
+              .forEach(calculation => this._listCalculation.add(calculation))
+        );
    }
 
    resetFields() {
-     this._expression = '';
-     this._result = '';
+     this._calculationModel.expression = '';
+     this._calculationModel.result = '';
+     this._answered = false;
+     this._display.addToLast(this._calculationModel.expression);
+     this._display.addToCurrent(this._calculationModel.result);
    }
 
    incrementExpression(key) {
-     this._expression += key;
+     this._calculationModel.expression += key;
+     this._display.addToCurrent(this._calculationModel.expression);
    }
 
    defineResults(result) {
-     this._result = result;
+     this._calculationModel.result = result;
    }
 
    calculate() {
-     let operation = this.Helper.splitExpression(this.expression);
+     let operation = this.Helper.splitExpression(this._calculationModel.expression);
      let operators = this.Helper.getOperators();
      let res = Array.from(operation);
      for (var i = 0; i < operators.length; i++) {
@@ -60,25 +90,61 @@ class CalculationController {
 
    processKey(key) {
 
-      if (!this.Helper.validade(key, this.expression))
+      if (this._answered && this.Helper.isNumber(key))
+        this._calculationModel.expression = '';
+
+      this._answered = false;
+      
+      if (this.Helper.isEquals(key) && !this._calculationModel.expression)
         return;
 
-      if (this.Helper.isEquals(key))
-        return this.concludeCalculation()
+      if (!this.Helper.validade(key, this._calculationModel.expression))
+        return;
+
+      if (this.Helper.isEquals(key)) {
+        return this.concludeCalculation();
+      }
+
+      if (this.Helper.isCleaner(key))
+        return this.resetFields();
 
       this.incrementExpression(key);
    }
 
    saveCalculation() {
-     let calculation = new Calculation(new Date(), this.expression, this.result);
-     this._listCalculation.add(calculation);
-     console.log(this._listCalculation.calculations);
+     let calculation = new Calculation(
+        new Date(), 
+        this._calculationModel.expression, 
+        this._calculationModel.result
+      );
+
+      this._listCalculation.add(calculation);
+      this._service.postCalculation(calculation)
+        .catch(err => console.log(err));
+
+      this._display.addToLast(this._calculationModel.expression);
+      this._display.addToCurrent(this._calculationModel.result);
+
+      this._answered = true;
+      this._calculationModel.expression = this._calculationModel.result = calculation.result.toString();
    }
 
    concludeCalculation() {
-     let answer = this.calculate();
-     this.defineResults(answer);
-     this.saveCalculation();
-     this.resetFields();
+
+      let answer = this.calculate();
+      this.defineResults(answer);
+      this.saveCalculation();
+   }
+
+   deleteCalculationHistory() {
+     this._listCalculation.remove();
+   }
+
+   orderCalculationHistory() {
+     this._listCalculation.sortByDate();
+   }
+
+   toggleHistoryMode() {
+      this._calculationView.toggleHistoryMode(this._calculatorBody);
    }
 }

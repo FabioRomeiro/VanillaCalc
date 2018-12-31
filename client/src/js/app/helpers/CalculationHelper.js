@@ -91,11 +91,21 @@ class CalculationHelper {
     return this.getKeyInfo(key).type === 'number';
   }
 
+  hasDecimal(expression) {
+    for (var i = expression.length - 1; i > 0; i--) {
+      if (this.isOperator(expression[i])) break;
+      else if (expression[i] === '.') return true;
+    }
+    return false;
+  }
+
   validade(key, expression) {
     let last_digit = expression[expression.length - 1];
 
     try {
-      if (this.isEquals(key) && this.isOperator(last_digit)) {
+      if (key === '.' && this.hasDecimal(expression)) {
+        throw new Error("This number is already a decimal");        
+      } else if (this.isEquals(key) && this.isOperator(last_digit)) {
         throw new Error("The expression is missing a number to calculate");
       } else if (this.isOperator(key) && !expression) {
         throw new Error("Cannot start a expression with an operator");
@@ -136,8 +146,7 @@ class CalculationHelper {
   getCalculatorKeyByCode(code) {
     return Object
             .keys(this.keyMap)
-            .find(item => this.keyMap[item].codes.includes(code))
-           || undefined;
+            .find(item => this.keyMap[item].codes.includes(code)) || undefined;
   }
 
 }
