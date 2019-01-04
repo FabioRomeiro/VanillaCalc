@@ -11,8 +11,13 @@ class ListCalculations {
     this._calculations = [];
   }
 
-  sortByDate() {
-    this._calculations.reverse((a, b) => a.date - b.date);
+  sortByDate(increase) {
+    let ordenateAlgorithm = (a, b) => a.date - b.date;
+    if (increase) {
+      this._calculations.sort(ordenateAlgorithm);
+    } else {
+      this._calculations.reverse(ordenateAlgorithm);
+    }
   }
 
   get calculations() {

@@ -6,7 +6,6 @@ class CalculationController {
       this._answered = false;
       this._calculatorBody = $('[data-calc]');
       
-      this.Helper = new CalculationHelper();
       this._service = new CalculationService();
       this._calculationModel = new DefaultCalculation(); 
       this._calculationView = new CalculationView($('[data-calc-history]'));
@@ -16,8 +15,15 @@ class CalculationController {
         this._calculationView,
         'add', 'remove', 'sortByDate'
       );
+      this._listCalculationDirection = true;
 
-      this.importCalculations();
+      ConnectionFactory
+        .getConnection()
+        .then(connection => new CalculationDao(connection))
+        .then(dao => dao.listAll())
+        .then(calculations =>
+            calculations.forEach(calculation => 
+              this._listCalculation.add(calculation)));
 
       this._display = new Bind(
         new Display(this._calculationModel.expression, this._calculationModel.result),
@@ -26,7 +32,7 @@ class CalculationController {
       );
 
       document.addEventListener('keydown', e => {
-        let key = this.Helper.getCalculatorKeyByCode(e.keyCode);
+        let key = CalculationHelper.getCalculatorKeyByCode(e.keyCode);
         if (key) this.processKey(key);
       });
    }
@@ -66,8 +72,8 @@ class CalculationController {
    }
 
    calculate() {
-     let operation = this.Helper.splitExpression(this._calculationModel.expression);
-     let operators = this.Helper.getOperators();
+     let operation = CalculationHelper.splitExpression(this._calculationModel.expression);
+     let operators = CalculationHelper.getOperators();
      let res = Array.from(operation);
      for (var i = 0; i < operators.length; i++) {
        while (res.includes(operators[i])) {
@@ -90,37 +96,46 @@ class CalculationController {
 
    processKey(key) {
 
-      if (this._answered && this.Helper.isNumber(key))
+      if (this._answered && CalculationHelper.isNumber(key))
         this._calculationModel.expression = '';
 
       this._answered = false;
       
-      if (this.Helper.isEquals(key) && !this._calculationModel.expression)
+      if (CalculationHelper.isEquals(key) && !this._calculationModel.expression)
         return;
 
-      if (!this.Helper.validade(key, this._calculationModel.expression))
+      if (!CalculationHelper.validade(key, this._calculationModel.expression))
         return;
 
-      if (this.Helper.isEquals(key)) {
+      if (CalculationHelper.isEquals(key)) {
         return this.concludeCalculation();
       }
 
-      if (this.Helper.isCleaner(key))
+      if (CalculationHelper.isCleaner(key))
         return this.resetFields();
 
       this.incrementExpression(key);
    }
 
    saveCalculation() {
-     let calculation = new Calculation(
+
+      let calculation = new Calculation(
         new Date(), 
         this._calculationModel.expression, 
         this._calculationModel.result
       );
 
-      this._listCalculation.add(calculation);
-      this._service.postCalculation(calculation)
-        .catch(err => console.log(err));
+      // this._listCalculation.add(calculation);
+      // this._service.postCalculation(calculation)
+      //   .catch(err => console.log(err));
+
+      ConnectionFactory
+        .getConnection()
+        .then(connection => 
+          new CalculationDao(connection)
+            .add(calculation)
+            .then(() => this._listCalculation.add(calculation))
+        );
 
       this._display.addToLast(this._calculationModel.expression);
       this._display.addToCurrent(this._calculationModel.result);
@@ -137,11 +152,18 @@ class CalculationController {
    }
 
    deleteCalculationHistory() {
-     this._listCalculation.remove();
+    //  this._listCalculation.remove();
+
+    ConnectionFactory
+      .getConnection()
+      .then(connection => new CalculationDao(connection))
+      .then(dao => dao.clearAll())
+      .then(() => this._listCalculation.remove());
    }
 
    orderCalculationHistory() {
-     this._listCalculation.sortByDate();
+     this._listCalculation.sortByDate(this._listCalculationDirection);
+     this._listCalculationDirection = !this._listCalculationDirection;
    }
 
    toggleHistoryMode() {

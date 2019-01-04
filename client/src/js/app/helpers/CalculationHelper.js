@@ -1,68 +1,71 @@
+function _generateMapKeys() {
+
+  let keymap = {
+    '/': {
+      type: 'operator',
+      order: 0,
+      codes: [111, 191]
+    },
+    'x': {
+      type: 'operator',
+      order: 1,
+      codes: [88, 106]
+    },
+    '-': {
+      type: 'operator',
+      order: 2,
+      codes: [109, 189]
+    },
+    '+': {
+      type: 'operator',
+      order: 4,
+      codes: [107, 16 + 187]
+    },
+    '=': {
+      type: 'equals',
+      codes: [187, 13]
+    },
+    'CE': {
+      type: 'cleaner',
+      codes: [8]
+    },
+    '.': {
+      type: 'decimal',
+      codes: [110, 190, 188]
+    },
+    'H': {
+      type: 'command',
+      codes: [72]
+    }
+  };
+
+  let cont = [48, 96];
+  for (let i = 0; i < 10; i++) {
+    keymap[i] = {
+      type: 'number',
+      codes: [cont[0], cont[1]]
+    };
+    cont = cont.map(item => item + 1);
+  }
+
+  return keymap;
+}
+
+var keyMap = _generateMapKeys();
+
 class CalculationHelper {
 
   constructor() {
-      this.keyMap = this._generateMapKeys();
+
+    throw new Error('Cannot instantiate CalculationHelper because it is a static class');
   }
 
-  _generateMapKeys() {
-
-    let keyMap = {
-      '/': {
-        type: 'operator',
-        order: 0,
-        codes: [111,191]
-      },
-      'x': {
-        type: 'operator',
-        order: 1,
-        codes: [88,106]
-      },
-      '-': {
-        type: 'operator',
-        order: 2,
-        codes: [109,189]
-      },
-      '+': {
-        type: 'operator',
-        order: 4,
-        codes: [107,16+187]
-      },
-      '=': {
-        type: 'equals',
-        codes: [187,13]
-      },
-      'CE': {
-        type: 'cleaner',
-        codes: [8]
-      },
-      '.': {
-        type: 'decimal',
-        codes: [110,190,188]
-      },
-      'H': {
-        type: 'command',
-        codes: [72]
-      }
-    };
-
-    let cont = [48,96];
-    for (let i = 0; i < 10; i++) {
-      keyMap[i] = {
-        type: 'number',
-        codes: [cont[0], cont[1]]
-      };
-      cont = cont.map(item => item + 1);
-    }
-
-    return keyMap;
-  }
-
-  getOperators() {
+  static getOperators() {
 
     let operators = [];
 
-    for (let operator in this.keyMap) {
-      let opInfo = this.keyMap[operator];
+    for (let operator in keyMap) {
+      let opInfo = keyMap[operator];
 
       if (opInfo.type === 'operator')
         operators[opInfo.order] = operator;
@@ -71,27 +74,27 @@ class CalculationHelper {
     return operators;
   }
 
-  isCommand(key) {
+  static isCommand(key) {
     return this.getKeyInfo(key).type === 'command';
   }
 
-  isCleaner(key) {
+  static isCleaner(key) {
     return this.getKeyInfo(key).type === 'cleaner';
   }
 
-  isEquals(key) {
+  static isEquals(key) {
     return this.getKeyInfo(key).type === 'equals';
   }
 
-  isOperator(key) {
+  static isOperator(key) {
     return this.getKeyInfo(key).type === 'operator';
   }
 
-  isNumber(key) {
+  static isNumber(key) {
     return this.getKeyInfo(key).type === 'number';
   }
 
-  hasDecimal(expression) {
+  static hasDecimal(expression) {
     for (var i = expression.length - 1; i > 0; i--) {
       if (this.isOperator(expression[i])) break;
       else if (expression[i] === '.') return true;
@@ -99,7 +102,7 @@ class CalculationHelper {
     return false;
   }
 
-  validade(key, expression) {
+  static validade(key, expression) {
     let last_digit = expression[expression.length - 1];
 
     try {
@@ -120,7 +123,7 @@ class CalculationHelper {
     return true;
   }
 
-  splitExpression(expression) {
+  static splitExpression(expression) {
     let operation = [];
     let sliceIndex = 0;
 
@@ -139,14 +142,14 @@ class CalculationHelper {
     return operation;
   }
 
-  getKeyInfo(key) {
-    return this.keyMap[key];
+  static getKeyInfo(key) {
+    return keyMap[key];
   }
 
-  getCalculatorKeyByCode(code) {
+  static getCalculatorKeyByCode(code) {
     return Object
-            .keys(this.keyMap)
-            .find(item => this.keyMap[item].codes.includes(code)) || undefined;
+            .keys(keyMap)
+            .find(item => keyMap[item].codes.includes(code)) || undefined;
   }
 
 }

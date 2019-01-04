@@ -83,6 +83,7 @@ body {
 
 .vanilla-calculator__lateral-button {
 
+  display: none;
   position: absolute;
   right: -35px;
   cursor: pointer;
@@ -97,22 +98,29 @@ body {
 
   border-radius: 0 8px 8px 0;
 }
-.vanilla-calculator__lateral-button--history {
+.vanilla-calculator__lateral-button:nth-child(1) {
   top: 16px;
-  background-image: url('../assets/images/history-clock-button.png');
 }
-.vanilla-calculator__lateral-button--history {
-  top: 16px;
-  background-image: url('../assets/images/history-clock-button.png');
-}
-.vanilla-calculator__lateral-button--sort {
-  display: none;
+.vanilla-calculator__lateral-button:nth-child(2) {
   top: 60px;
+}
+.vanilla-calculator__lateral-button:nth-child(3) {
+  top: 104px;
+}
+.vanilla-calculator__lateral-button:nth-child(4) {
+  top: 148px;
+}
+.vanilla-calculator__lateral-button--history {
+  display: block;
+  background-image: url('../assets/images/history-clock-button.png');
+}
+.vanilla-calculator__lateral-button--sort {  
   background-image: url('../assets/images/sort-button.png');
 }
+.vanilla-calculator__lateral-button--download {
+  background-image: url('../assets/images/download-button.png');
+}
 .vanilla-calculator__lateral-button--delete {
-  display: none;
-  top: 104px;
   background-image: url('../assets/images/delete-button.png');
 }
 
@@ -277,6 +285,7 @@ body {
 
 .vanilla-calculator.vanilla-calculator--history-mode .vanilla-calculator__history-display,
 .vanilla-calculator.vanilla-calculator--history-mode .vanilla-calculator__lateral-button--delete,
+.vanilla-calculator.vanilla-calculator--history-mode .vanilla-calculator__lateral-button--download,
 .vanilla-calculator.vanilla-calculator--history-mode .vanilla-calculator__lateral-button--sort {
   display: block;
 }

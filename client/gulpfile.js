@@ -93,6 +93,10 @@ gulp.task('inject', () =>
             starttag: '<!-- inject:services:{{ext}} -->',
             relative: true
         }))
+        .pipe(inject(gulp.src('src/js/app/dao/*.js', { read: false }), { 
+            starttag: '<!-- inject:dao:{{ext}} -->',
+            relative: true
+        }))
         .pipe(gulp.dest('src/'))
 );
 

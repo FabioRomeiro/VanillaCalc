@@ -24,17 +24,26 @@
       <section class="vanilla-calculator" data-calc>
         <div 
           class="vanilla-calculator__lateral-button vanilla-calculator__lateral-button--history" 
+          title="Check calculations history"
           onclick="calculationController.toggleHistoryMode()">
+        </div>
+
+        <!-- <div 
+          class="vanilla-calculator__lateral-button vanilla-calculator__lateral-button--download" 
+          title="Import previous calculations"
+          onclick="calculationController.importCalculations()">
+        </div> -->
+
+        <div 
+          class="vanilla-calculator__lateral-button vanilla-calculator__lateral-button--sort" 
+          title="Ordenate history"
+          onclick="calculationController.orderCalculationHistory()">
         </div>
 
         <div 
           class="vanilla-calculator__lateral-button vanilla-calculator__lateral-button--delete" 
+          title="Delete history"
           onclick="calculationController.deleteCalculationHistory()">
-        </div>
-
-        <div 
-          class="vanilla-calculator__lateral-button vanilla-calculator__lateral-button--sort" 
-          onclick="calculationController.orderCalculationHistory()">
         </div>
 
         <div class="vanilla-calculator__info-head">
@@ -208,8 +217,12 @@
     <!-- endinject -->
     <!-- inject:services:js -->
     <script src="js/app/services/CalculationService.js"></script>
+    <script src="js/app/services/ConnectionFactory.js"></script>
     <script src="js/app/services/HttpService.js"></script>
     <script src="js/app/services/ProxyFactory.js"></script>
+    <!-- endinject -->
+    <!-- inject:dao:js -->
+    <script src="js/app/dao/CalculationDao.js"></script>
     <!-- endinject -->
     <script type="text/javascript">
       var calculationController = new CalculationController();
