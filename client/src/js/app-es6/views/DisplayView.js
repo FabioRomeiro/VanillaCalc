@@ -1,4 +1,6 @@
-class DisplayView extends View {
+import {View} from './View';
+
+export class DisplayView extends View {
     
     constructor(element) {
         super(element);

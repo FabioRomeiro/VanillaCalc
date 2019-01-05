@@ -1,4 +1,14 @@
-class CalculationController {
+import {Calculation} from '../models/Calculation';
+import {ListCalculations} from '../models/ListCalculations';
+import {DefaultCalculation} from '../models/DefaultCalculation';
+import {Display} from '../models/Display';
+import {CalculationView} from '../views/CalculationView';
+import {DisplayView} from '../views/DisplayView';
+import {CalculationService} from '../services/CalculationService';
+import {CalculationHelper} from '../helpers/CalculationHelper';
+import {Bind} from '../helpers/Bind';
+
+export class CalculationController {
 
    constructor(){
       

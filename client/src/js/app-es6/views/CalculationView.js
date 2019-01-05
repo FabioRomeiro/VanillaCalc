@@ -1,4 +1,6 @@
-class CalculationView extends View{
+import { View } from './View';
+
+export class CalculationView extends View {
     
     constructor(element) {
         super(element);
