@@ -1,4 +1,4 @@
-class Display {
+export class Display {
 
     constructor(last, current) {
         this._last = last;

@@ -2,16 +2,17 @@ const stores = ['calculations'];
 const dbName = 'vanillaframe';
 const version = 2;
 
-var connection = null;
-var close = null;
+let connection = null;
+let close = null;
 
-class ConnectionFactory {
+export class ConnectionFactory {
 
     constructor() {
         throw new Error('Cannot instantiate ConnectionFactory because it is a static class');
     }
 
     static getConnection() {
+   
         return new Promise((resolve, reject) => {
             
             let openRequest = window.indexedDB.open(dbName, version);
