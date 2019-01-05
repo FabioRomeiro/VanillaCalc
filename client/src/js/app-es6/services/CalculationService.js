@@ -63,7 +63,7 @@ class CalculationService {
             .getConnection()
             .then(connection => new CalculationDao(connection))
             .then(dao => dao.add(calculation))
-            .then(() => {
+            /*.then(() => {
 
                 let content = {
                     date: calculation.date,
@@ -76,7 +76,7 @@ class CalculationService {
                     .catch(err => {
                         throw new Error(err); 
                     });
-            });
+            })*/;
     }
 
     clearCalculations() {

@@ -83,24 +83,24 @@ var CalculationService = function () {
     }, {
         key: 'postCalculation',
         value: function postCalculation(calculation) {
-            var _this4 = this;
 
             return ConnectionFactory.getConnection().then(function (connection) {
                 return new CalculationDao(connection);
             }).then(function (dao) {
                 return dao.add(calculation);
-            }).then(function () {
-
-                var content = {
+            })
+            /*.then(() => {
+                 let content = {
                     date: calculation.date,
                     expression: calculation.expression,
                     result: calculation.result
                 };
-
-                _this4._http.post('http://localhost:9003/calc', content).catch(function (err) {
-                    throw new Error(err);
-                });
-            });
+                 this._http
+                    .post('http://localhost:9003/calc', content)                    
+                    .catch(err => {
+                        throw new Error(err); 
+                    });
+            })*/;
         }
     }, {
         key: 'clearCalculations',
