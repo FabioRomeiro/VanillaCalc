@@ -53,7 +53,7 @@ function _generateMapKeys() {
 
 let keyMap = _generateMapKeys();
 
-export class CalculationHelper {
+class CalculationHelper {
 
   constructor() {
 

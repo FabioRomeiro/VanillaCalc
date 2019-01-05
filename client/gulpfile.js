@@ -64,32 +64,30 @@ gulp.task('css', () =>
         .pipe(gulp.dest('src/css/'))
 );
 
-// gulp.task('js-build', () => 
-//     gulp.src(['dist/js/app-es6/**/*.js', '!dist/js/app-es6/polyfill/**/*.js'])
-//         .pipe(babel({
-//             presets: ['es2015'],
-//             ignore: [
-//                 'dist/js/app-es6/polyfill',
-//                 'dist/js/app-es6/lib/system.js'
-//             ],
-//             plugins: ['transform-es2015-modules-systemjs'],
-//             sourceMaps: true
-//         }))
-//         .on('error', console.error.bind(console))
-//         .pipe(sourcemaps.init({ loadMaps: true }))
-//         .pipe(uglify())
-//         .pipe(sourcemaps.write('./'))
-//         .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
-//         .pipe(gulp.dest('dist/js/app/'))
-// );
+gulp.task('js-build', () => 
+    gulp.src(['dist/js/app-es6/**/*.js', '!dist/js/app-es6/polyfill/**/*.js'])
+        .pipe(babel({
+            presets: ['es2015'],
+            ignore: [
+                'dist/js/app-es6/polyfill',
+                'dist/js/app-es6/lib/system.js'
+            ],
+            plugins: ['transform-es2015-modules-systemjs'],
+            sourceMaps: true
+        }))
+        .on('error', console.error.bind(console))
+        .pipe(sourcemaps.init({ loadMaps: true }))
+        .pipe(uglify())
+        .pipe(sourcemaps.write('./'))
+        .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
+        .pipe(gulp.dest('dist/js/app/'))
+);
 
 gulp.task('js', () =>
     gulp.src(['src/js/app-es6/**/*.js'])
         .pipe(babel({
             presets: ['es2015'],
-            sourceMaps: true, 
-            ignore: ["src/js/app-es6/lib/**/*.js"],
-            plugins: ["transform-es2015-modules-systemjs"]
+            sourceMaps: true
         }))
         .on('error', console.error.bind(console))
         .pipe(gulp.dest('src/js/app/'))
@@ -134,7 +132,7 @@ gulp.task('inject', () =>
         .pipe(gulp.dest('src/'))
 );
 
-gulp.task('server', ['js'], () => {
+gulp.task('server', ['js', 'inject'], () => {
     browserSync.init({
         server: {
             baseDir: 'src'
@@ -148,9 +146,7 @@ gulp.task('server', ['js'], () => {
             .pipe(jshint.reporter(jshintStylish))
              .pipe(babel({
                 presets: ['es2015'],
-                ignore: ["src/js/app-es6/lib/**/*.js"],
-                sourceMaps: true,
-                plugins: ["transform-es2015-modules-systemjs"]
+                sourceMaps: true
             }))
             .on('error', console.error.bind(console))
             .pipe(gulp.dest('src/js/app/'));

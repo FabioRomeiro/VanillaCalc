@@ -1,6 +1,7 @@
 {
     "presets": ["es2015"],
-    "ignore": ["src/js/app-es6/lib/**/*.js"],
-    "plugins" : ["transform-es2015-modules-systemjs"],
+    "ignore": [
+
+    ],
     "sourceMaps": true
 }

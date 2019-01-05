@@ -1,4 +1,4 @@
-export class Calculation {
+class Calculation {
 
   constructor(date=new Date(), expression='', result='') {
       this._date = new Date(date.getTime());

@@ -1,9 +1,4 @@
-import {HttpService} from './HttpService';
-import {CalculationDao} from '../dao/CalculationDao';
-import {ConnectionFactory} from './ConnectionFactory';
-import {Calculation} from '../models/Calculation';
-
-export class CalculationService {
+class CalculationService {
 
     constructor() {
         this._http = new HttpService();

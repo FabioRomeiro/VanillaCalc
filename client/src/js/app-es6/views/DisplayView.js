@@ -1,6 +1,4 @@
-import {View} from './View';
-
-export class DisplayView extends View {
+class DisplayView extends View {
     
     constructor(element) {
         super(element);

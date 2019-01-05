@@ -1,4 +1,4 @@
-export class DefaultCalculation {
+class DefaultCalculation {
     
     constructor(expression='', result='') {
         this._expression = expression;

@@ -1,6 +1,4 @@
-import {Calculation} from '../models/Calculation';
-
-export class CalculationDao {
+class CalculationDao {
     
     constructor(connection) {
 
