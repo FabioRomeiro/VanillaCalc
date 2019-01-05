@@ -1,22 +1,2 @@
-class Calculation {
-
-  constructor(date, expression, result) {
-      this._date = new Date(date.getTime());
-      this._expression = expression;
-      this._result = result;
-
-      Object.freeze(this);
-  }
-
-  get date() {
-    return new Date(this._date.getTime());
-  }
-
-  get expression() {
-    return this._expression;
-  }
-
-  get result() {
-    return this._result;
-  }
-}
+"use strict";System.register([],function(e,t){return{setters:[],execute:function(){System.register([],function(e,t){var n,i;return{setters:[],execute:function(){n=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}(),e("Calculation",i=function(){function i(){var e=0<arguments.length&&void 0!==arguments[0]?arguments[0]:new Date,t=1<arguments.length&&void 0!==arguments[1]?arguments[1]:"",n=2<arguments.length&&void 0!==arguments[2]?arguments[2]:"";!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,i),this._date=new Date(e.getTime()),this._expression=t,this._result=n,Object.freeze(this)}return n(i,[{key:"isEquals",value:function(e){return JSON.stringify(this)==JSON.stringify(e)}},{key:"date",set:function(e){this._date=new Date(e.getTime())},get:function(){return new Date(this._date.getTime())}},{key:"expression",set:function(e){this._expression=e},get:function(){return this._expression}},{key:"result",set:function(e){this._result=e},get:function(){return this._result}}]),i}()),e("Calculation",i)}}})}}});
+//# sourceMappingURL=Calculation.js.map

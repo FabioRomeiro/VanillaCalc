@@ -1,172 +1,182 @@
-class CalculationController {
+'use strict';
 
-   constructor(){
-      
-      let $ = document.querySelector.bind(document);
-      this._answered = false;
-      this._calculatorBody = $('[data-calc]');
-      
-      this._service = new CalculationService();
-      this._calculationModel = new DefaultCalculation(); 
-      this._calculationView = new CalculationView($('[data-calc-history]'));
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-      this._listCalculation = new Bind(
-        new ListCalculations(),
-        this._calculationView,
-        'add', 'remove', 'sortByDate'
-      );
-      this._listCalculationDirection = true;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-      ConnectionFactory
-        .getConnection()
-        .then(connection => new CalculationDao(connection))
-        .then(dao => dao.listAll())
-        .then(calculations =>
-            calculations.forEach(calculation => 
-              this._listCalculation.add(calculation)));
+var CalculationController = function () {
+  function CalculationController() {
+    _classCallCheck(this, CalculationController);
 
-      this._display = new Bind(
-        new Display(this._calculationModel.expression, this._calculationModel.result),
-        new DisplayView($('[data-display]')),
-        'addToLast', 'addToCurrent'
-      );
+    var $ = document.querySelector.bind(document);
+    this._answered = false;
+    this._calculatorBody = $('[data-calc]');
 
-      document.addEventListener('keydown', e => {
-        let key = CalculationHelper.getCalculatorKeyByCode(e.keyCode);
-        if (key) this.processKey(key);
+    this._service = new CalculationService();
+    this._calculationModel = new DefaultCalculation();
+    this._calculationView = new CalculationView($('[data-calc-history]'));
+
+    this._listCalculation = new Bind(new ListCalculations(), this._calculationView, 'add', 'remove', 'sortByDate');
+    this._listCalculationDirection = true;
+
+    this._display = new Bind(new Display(this._calculationModel.expression, this._calculationModel.result), new DisplayView($('[data-display]')), 'addToLast', 'addToCurrent');
+
+    this._init();
+  }
+
+  _createClass(CalculationController, [{
+    key: '_init',
+    value: function _init() {
+      var _this = this;
+
+      this._service.requestLocalCalculations().then(function (calculations) {
+        return calculations.forEach(function (calculation) {
+          return _this._listCalculation.add(calculation);
+        });
       });
-   }
 
-   get expression() {
-     return this._calculationModel.expression;
-   }
+      document.addEventListener('keydown', function (e) {
+        var key = CalculationHelper.getCalculatorKeyByCode(e.keyCode);
+        if (key) _this.processKey(key);
+      });
+    }
+  }, {
+    key: 'importCalculations',
+    value: function importCalculations() {
+      var _this2 = this;
 
-   get result() {
-     return this._calculationModel.result;
-   }
-
-   importCalculations() {
-
-      this._service.requestCalculations()
-        .then(allCalculations => 
-            allCalculations
-              .forEach(calculation => this._listCalculation.add(calculation))
-        );
-   }
-
-   resetFields() {
-     this._calculationModel.expression = '';
-     this._calculationModel.result = '';
-     this._answered = false;
-     this._display.addToLast(this._calculationModel.expression);
-     this._display.addToCurrent(this._calculationModel.result);
-   }
-
-   incrementExpression(key) {
-     this._calculationModel.expression += key;
-     this._display.addToCurrent(this._calculationModel.expression);
-   }
-
-   defineResults(result) {
-     this._calculationModel.result = result;
-   }
-
-   calculate() {
-     let operation = CalculationHelper.splitExpression(this._calculationModel.expression);
-     let operators = CalculationHelper.getOperators();
-     let res = Array.from(operation);
-     for (var i = 0; i < operators.length; i++) {
-       while (res.includes(operators[i])) {
-        let operatorIndex = res.indexOf(operators[i]);
-        if (operators[i] === '/') {
-          res[operatorIndex-1] = parseFloat(res[operatorIndex-1]) / parseFloat(res[operatorIndex + 1]);
-        } else if (operators[i] === 'x') {
-          res[operatorIndex-1] = parseFloat(res[operatorIndex-1]) * parseFloat(res[operatorIndex + 1]);
-        } else if (operators[i] === '-') {
-          res[operatorIndex-1] = parseFloat(res[operatorIndex-1]) - parseFloat(res[operatorIndex + 1]);
-        } else if (operators[i] === '+') {
-          res[operatorIndex-1] = parseFloat(res[operatorIndex-1]) + parseFloat(res[operatorIndex + 1]);
+      this._service.requestCalculations().then(function (allCalculations) {
+        return allCalculations.filter(function (calculation) {
+          return !_this2._listCalculation.calculations.some(function (existentCalculation) {
+            return calculation.isEquals(existentCalculation);
+          });
+        });
+      }).then(function (newCalculations) {
+        return newCalculations.forEach(function (newCalculation) {
+          return _this2._listCalculation.add(newCalculation);
+        });
+      });
+    }
+  }, {
+    key: 'resetFields',
+    value: function resetFields() {
+      this._calculationModel.expression = '';
+      this._calculationModel.result = '';
+      this._answered = false;
+      this._display.addToLast(this._calculationModel.expression);
+      this._display.addToCurrent(this._calculationModel.result);
+    }
+  }, {
+    key: 'incrementExpression',
+    value: function incrementExpression(key) {
+      this._calculationModel.expression += key;
+      this._display.addToCurrent(this._calculationModel.expression);
+    }
+  }, {
+    key: 'defineResults',
+    value: function defineResults(result) {
+      this._calculationModel.result = result;
+    }
+  }, {
+    key: 'calculate',
+    value: function calculate() {
+      var operation = CalculationHelper.splitExpression(this._calculationModel.expression);
+      var operators = CalculationHelper.getOperators();
+      var res = Array.from(operation);
+      for (var i = 0; i < operators.length; i++) {
+        while (res.includes(operators[i])) {
+          var operatorIndex = res.indexOf(operators[i]);
+          if (operators[i] === '/') {
+            res[operatorIndex - 1] = parseFloat(res[operatorIndex - 1]) / parseFloat(res[operatorIndex + 1]);
+          } else if (operators[i] === 'x') {
+            res[operatorIndex - 1] = parseFloat(res[operatorIndex - 1]) * parseFloat(res[operatorIndex + 1]);
+          } else if (operators[i] === '-') {
+            res[operatorIndex - 1] = parseFloat(res[operatorIndex - 1]) - parseFloat(res[operatorIndex + 1]);
+          } else if (operators[i] === '+') {
+            res[operatorIndex - 1] = parseFloat(res[operatorIndex - 1]) + parseFloat(res[operatorIndex + 1]);
+          }
+          res.splice(operatorIndex, 2);
         }
-        res.splice(operatorIndex,2);
       }
-     }
 
-     return res[0];
-   }
+      return res[0];
+    }
+  }, {
+    key: 'processKey',
+    value: function processKey(key) {
 
-   processKey(key) {
-
-      if (this._answered && CalculationHelper.isNumber(key))
-        this._calculationModel.expression = '';
+      if (this._answered && CalculationHelper.isNumber(key)) this._calculationModel.expression = '';
 
       this._answered = false;
-      
-      if (CalculationHelper.isEquals(key) && !this._calculationModel.expression)
-        return;
 
-      if (!CalculationHelper.validade(key, this._calculationModel.expression))
-        return;
+      if (CalculationHelper.isEquals(key) && !this._calculationModel.expression) return;
+
+      if (!CalculationHelper.validade(key, this._calculationModel.expression)) return;
 
       if (CalculationHelper.isEquals(key)) {
         return this.concludeCalculation();
       }
 
-      if (CalculationHelper.isCleaner(key))
-        return this.resetFields();
+      if (CalculationHelper.isCleaner(key)) return this.resetFields();
 
       this.incrementExpression(key);
-   }
+    }
+  }, {
+    key: 'saveCalculation',
+    value: function saveCalculation() {
+      var _this3 = this;
 
-   saveCalculation() {
+      var calculation = new Calculation(new Date(), this._calculationModel.expression, this._calculationModel.result);
 
-      let calculation = new Calculation(
-        new Date(), 
-        this._calculationModel.expression, 
-        this._calculationModel.result
-      );
-
-      // this._listCalculation.add(calculation);
-      // this._service.postCalculation(calculation)
-      //   .catch(err => console.log(err));
-
-      ConnectionFactory
-        .getConnection()
-        .then(connection => 
-          new CalculationDao(connection)
-            .add(calculation)
-            .then(() => this._listCalculation.add(calculation))
-        );
+      this._service.postCalculation(calculation).then(function () {
+        return _this3._listCalculation.add(calculation);
+      });
 
       this._display.addToLast(this._calculationModel.expression);
       this._display.addToCurrent(this._calculationModel.result);
 
       this._answered = true;
       this._calculationModel.expression = this._calculationModel.result = calculation.result.toString();
-   }
+    }
+  }, {
+    key: 'concludeCalculation',
+    value: function concludeCalculation() {
 
-   concludeCalculation() {
-
-      let answer = this.calculate();
+      var answer = this.calculate();
       this.defineResults(answer);
       this.saveCalculation();
-   }
+    }
+  }, {
+    key: 'deleteCalculationHistory',
+    value: function deleteCalculationHistory() {
+      var _this4 = this;
 
-   deleteCalculationHistory() {
-    //  this._listCalculation.remove();
-
-    ConnectionFactory
-      .getConnection()
-      .then(connection => new CalculationDao(connection))
-      .then(dao => dao.clearAll())
-      .then(() => this._listCalculation.remove());
-   }
-
-   orderCalculationHistory() {
-     this._listCalculation.sortByDate(this._listCalculationDirection);
-     this._listCalculationDirection = !this._listCalculationDirection;
-   }
-
-   toggleHistoryMode() {
+      this._service.clearCalculations().then(function () {
+        return _this4._listCalculation.remove();
+      });
+    }
+  }, {
+    key: 'orderCalculationHistory',
+    value: function orderCalculationHistory() {
+      this._listCalculation.sortByDate(this._listCalculationDirection);
+      this._listCalculationDirection = !this._listCalculationDirection;
+    }
+  }, {
+    key: 'toggleHistoryMode',
+    value: function toggleHistoryMode() {
       this._calculationView.toggleHistoryMode(this._calculatorBody);
-   }
-}
+    }
+  }, {
+    key: 'expression',
+    get: function get() {
+      return this._calculationModel.expression;
+    }
+  }, {
+    key: 'result',
+    get: function get() {
+      return this._calculationModel.result;
+    }
+  }]);
+
+  return CalculationController;
+}();

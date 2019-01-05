@@ -1,51 +1,45 @@
-class HttpService {
+'use strict';
 
-    get(url) {
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-        return new Promise((resolve, reject) => {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-            let xhr = new XMLHttpRequest();
-
-            xhr.open('GET', url);
-
-            xhr.onreadystatechange = () => {
-
-                if (xhr.readyState == 4) {
-
-                    if (xhr.status == 200) {
-
-                        resolve(JSON.parse(xhr.responseText));
-
-                    } else {
-                        reject(`Error: ${xhr.responseText}`);
-                    }
-                }
-            };
-
-            xhr.send();
-        });
+var HttpService = function () {
+    function HttpService() {
+        _classCallCheck(this, HttpService);
     }
 
-    post(url, content) {
-        return new Promise((resolve, reject) => {
+    _createClass(HttpService, [{
+        key: '_handleErrors',
+        value: function _handleErrors(res) {
+            if (!res.ok) throw new Error(res.statusText);
+            return res;
+        }
+    }, {
+        key: 'get',
+        value: function get(url) {
+            var _this = this;
 
-            let xhr = new XMLHttpRequest();
+            return fetch(url).then(function (res) {
+                return _this._handleErrors(res);
+            }).then(function (res) {
+                return res.json();
+            });
+        }
+    }, {
+        key: 'post',
+        value: function post(url, content) {
+            var _this2 = this;
 
-            xhr.open('POST', url, true);
-            xhr.setRequestHeader("Content-type", "application/json");
+            return fetch(url, {
+                headers: { 'Content-type': 'application/json' },
+                method: 'POST',
+                body: JSON.stringify(content)
+            }).then(function (res) {
+                return _this2._handleErrors(res);
+            });
+        }
+    }]);
 
-            xhr.onreadystatechange = () => {
-
-                if (xhr.readyState == 4) {
-
-                    if (xhr.status != 200) {
-                        reject(`Error on post: status(${xhr.status})`);
-                    }
-                }
-            };
-
-            resolve(content);
-            xhr.send(content);
-        });
-    }
-}
+    return HttpService;
+}();

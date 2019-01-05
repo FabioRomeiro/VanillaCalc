@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Vanilla Calc</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.min.css">
+    <!-- inject:polyfill:js -->
+    <script src="js/app/polyfill/fetch.js"></script>
+    <!-- endinject -->
+  </head>
+  <body>
+    <div class="vanilla-content">
+      <header class="vanilla-header">
+        <h1 class="vanilla-header__title">< vanilla-calc ></h1>
+      </header>
+
+      <div class="vanilla-info-trigger">
+        <div class="vanilla-info-trigger__arrow"></div>
+      </div>
+
+      <nav class="vanilla-nav vanilla-nav--off"></nav>
+
+      <section class="vanilla-calculator" data-calc>
+        <div 
+          class="vanilla-calculator__lateral-button vanilla-calculator__lateral-button--history" 
+          title="Check calculations history"
+          action="history-mode"
+          onclick="calculationController.toggleHistoryMode()">
+        </div>
+
+        <div 
+          class="vanilla-calculator__lateral-button vanilla-calculator__lateral-button--download" 
+          title="Import previous calculations"
+          action="import-calculations"
+          onclick="calculationController.importCalculations()">
+        </div>
+
+        <div 
+          class="vanilla-calculator__lateral-button vanilla-calculator__lateral-button--sort" 
+          title="Ordenate history"
+          action="ordenate-history"
+          onclick="calculationController.orderCalculationHistory()">
+        </div>
+
+        <div 
+          class="vanilla-calculator__lateral-button vanilla-calculator__lateral-button--delete" 
+          title="Delete history"
+          action="delete-history"
+          onclick="calculationController.deleteCalculationHistory()">
+        </div>
+
+        <div class="vanilla-calculator__info-head">
+          <div class="head-index">
+            <h4>Date</h3>
+          </div>
+          <div class="head-index">
+            <h4>Calculation</h3>
+          </div>
+        </div>
+        <div data-calc-history class="vanilla-calculator__history-display"></div>
+
+        <div class="vanilla-calculator__display" data-display></div>
+
+        <div class="vanilla-calculator__keyboard">
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="operator"
+              onclick="calculationController.processKey('(')" disabled>
+              (
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="operator"
+              onclick="calculationController.processKey(')')" disabled>
+              )
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="operator"
+              onclick="calculationController.processKey('%')" disabled>
+              %
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="cleaner"
+              onclick="calculationController.processKey('CE')">
+              CE
+            </button>
+          </div>
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              onclick="calculationController.processKey('7')">7
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              onclick="calculationController.processKey('8')">8
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              onclick="calculationController.processKey('9')">9
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="operator"
+              onclick="calculationController.processKey('/')">/
+            </button>
+          </div>
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              onclick="calculationController.processKey('4')">4
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              onclick="calculationController.processKey('5')">5
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              onclick="calculationController.processKey('6')">6
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="operator"
+              onclick="calculationController.processKey('x')">x
+            </button>
+          </div>
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              onclick="calculationController.processKey('3')">3
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              onclick="calculationController.processKey('2')">2
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              onclick="calculationController.processKey('1')">1
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="operator"
+              onclick="calculationController.processKey('-')">-
+            </button>
+          </div>
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              onclick="calculationController.processKey('0')">0
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              data-type="number"
+              onclick="calculationController.processKey('.')">.
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--equals-button"
+              type="button"
+              data-type="equals"
+              onclick="calculationController.processKey('=')">=
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              data-type="operator"
+              onclick="calculationController.processKey('+')">+
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="../node_modules/systemjs/dist/system.js"></script>
+    <script>
+      System.defaultJSExtensions = true;
+      System.import('js/app/boot').catch(function(err) {
+        console.log(err);
+      });
+    </script>
+  </body>
+</html>

@@ -1,13 +1,2 @@
-class ListCalculations {
-  constructor() {
-    this._calculations = [];
-  }
-
-  add(calculation) {
-    this._calculations.push(calculation);
-  }
-
-  get calculations() {
-    return [].concat(this._calculations);
-  }
-}
+"use strict";System.register([],function(t,n){return{setters:[],execute:function(){System.register([],function(t,n){var e,i;return{setters:[],execute:function(){e=function(){function i(t,n){for(var e=0;e<n.length;e++){var i=n[e];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}return function(t,n,e){return n&&i(t.prototype,n),e&&i(t,e),t}}(),t("ListCalculations",i=function(){function t(){!function(t,n){if(!(t instanceof n))throw new TypeError("Cannot call a class as a function")}(this,t),this._calculations=[]}return e(t,[{key:"add",value:function(t){this._calculations.push(t)}},{key:"remove",value:function(){this._calculations=[]}},{key:"sortByDate",value:function(t){var n=function(t,n){return t.date-n.date};t?this._calculations.sort(n):this._calculations.reverse(n)}},{key:"calculations",get:function(){return[].concat(this._calculations)}}]),t}()),t("ListCalculations",i)}}})}}});
+//# sourceMappingURL=ListCalculations.js.map

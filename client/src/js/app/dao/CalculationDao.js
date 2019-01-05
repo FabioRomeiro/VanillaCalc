@@ -1,75 +1,87 @@
-class CalculationDao {
-    
-    constructor(connection) {
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var CalculationDao = function () {
+    function CalculationDao(connection) {
+        _classCallCheck(this, CalculationDao);
 
         this._connection = connection;
         this._store = 'calculations';
     }
 
-    add(calculation) {
+    _createClass(CalculationDao, [{
+        key: 'add',
+        value: function add(calculation) {
+            var _this = this;
 
-        return new Promise((resolve,reject) => {
-            
-            let request = this._connection
-                .transaction([this._store], 'readwrite')
-                .objectStore(this._store)
-                .add(calculation);
-            
-            request.onsuccess = e => resolve();
-            request.onerror = e => {
-                console.log(e.target.error);
-                reject('Failed on saving calculation into IndexedDB');
-            };
-        });
-    }
+            return new Promise(function (resolve, reject) {
 
-    listAll() {
+                var request = _this._connection.transaction([_this._store], 'readwrite').objectStore(_this._store).add(calculation);
 
-        return new Promise((resolve, reject) => {
+                request.onsuccess = function (e) {
+                    return resolve();
+                };
+                request.onerror = function (e) {
+                    console.log(e.target.error);
+                    reject('Failed on saving calculation into IndexedDB');
+                };
+            });
+        }
+    }, {
+        key: 'listAll',
+        value: function listAll() {
+            var _this2 = this;
 
-            let cursor = this._connection
-                .transaction([this._store], 'readwrite')
-                .objectStore(this._store)
-                .openCursor();
+            return new Promise(function (resolve, reject) {
 
-            let calculations = [];
+                var cursor = _this2._connection.transaction([_this2._store], 'readwrite').objectStore(_this2._store).openCursor();
 
-            cursor.onsuccess = e => {
-                let actual = e.target.result;
+                var calculations = [];
 
-                if (actual) {
+                cursor.onsuccess = function (e) {
+                    var actual = e.target.result;
 
-                    let data = actual.value;
+                    if (actual) {
 
-                    calculations.push(new Calculation(data._date, data._expression, data._result));
-                    
-                    actual.continue();
-                } else {
-                    resolve(calculations);
-                }
-            };
+                        var data = actual.value;
 
-            cursor.onerror = e => {
-                console.log(e.target.error);
-                reject('Failed on listing calculation from IndexedDB');
-            };
-        });
-    }
+                        calculations.push(new Calculation(data._date, data._expression, data._result));
 
-    clearAll() {
-        return new Promise((resolve, reject) => {
+                        actual.continue();
+                    } else {
+                        resolve(calculations);
+                    }
+                };
 
-            let request = this._connection
-                .transaction([this._store], 'readwrite')
-                .objectStore(this._store)
-                .clear();
+                cursor.onerror = function (e) {
+                    console.log(e.target.error);
+                    reject('Failed on listing calculation from IndexedDB');
+                };
+            });
+        }
+    }, {
+        key: 'clearAll',
+        value: function clearAll() {
+            var _this3 = this;
 
-            request.onsuccess = e => resolve();
+            return new Promise(function (resolve, reject) {
 
-            request.onerror = e => {
-                console.log(e.target.error);
-                reject('Failed on deleting calculation from IndexedDB');
-            };
-        });
-    }
-}
+                var request = _this3._connection.transaction([_this3._store], 'readwrite').objectStore(_this3._store).clear();
+
+                request.onsuccess = function (e) {
+                    return resolve();
+                };
+
+                request.onerror = function (e) {
+                    console.log(e.target.error);
+                    reject('Failed on deleting calculation from IndexedDB');
+                };
+            });
+        }
+    }]);
+
+    return CalculationDao;
+}();

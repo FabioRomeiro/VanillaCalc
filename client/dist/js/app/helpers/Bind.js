@@ -1,0 +1,2 @@
+"use strict";System.register([],function(t,e){return{setters:[],execute:function(){System.register(["../services/ProxyFactory"],function(t,e){var u,r;return{setters:[function(t){u=t.ProxyFactory}],execute:function(){t("Bind",r=function t(e,r){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t);for(var n=arguments.length,c=Array(2<n?n-2:0),i=2;i<n;i++)c[i-2]=arguments[i];var o=u.create(e,c,function(t){return r.update(t)});return r.update(e),o}),t("Bind",r)}}})}}});
+//# sourceMappingURL=Bind.js.map

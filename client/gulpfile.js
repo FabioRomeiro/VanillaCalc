@@ -11,6 +11,9 @@ const logger = require('gulp-logger');
 const inject = require('gulp-inject');
 const concat = require('gulp-concat');
 const cssmin = require('gulp-cssmin');
+const babel = require('gulp-babel');
+const sourcemaps = require('gulp-sourcemaps');
+const gutil = require('gulp-util');
 
 gulp.task('clean', () =>
     gulp.src('dist')
@@ -61,10 +64,39 @@ gulp.task('css', () =>
         .pipe(gulp.dest('src/css/'))
 );
 
+gulp.task('js-build', () => 
+    gulp.src(['dist/js/app-es6/**/*.js', '!dist/js/app-es6/polyfill/**/*.js'])
+        .pipe(babel({
+            presets: ['es2015'],
+            ignore: [
+                'dist/js/app-es6/polyfill',
+                'dist/js/app-es6/lib/system.js'
+            ],
+            plugins: ['transform-es2015-modules-systemjs'],
+            sourceMaps: true
+        }))
+        .on('error', console.error.bind(console))
+        .pipe(sourcemaps.init({ loadMaps: true }))
+        .pipe(uglify())
+        .pipe(sourcemaps.write('./'))
+        .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
+        .pipe(gulp.dest('dist/js/app/'))
+);
+
+gulp.task('js', () =>
+    gulp.src(['src/js/app-es6/**/*.js'])
+        .pipe(babel({
+            presets: ['es2015'],
+            sourceMaps: true
+        }))
+        .on('error', console.error.bind(console))
+        .pipe(gulp.dest('src/js/app/'))
+);
+
 gulp.task('default', ['build']);
 
 gulp.task('build', ['copy'], () => {
-    gulp.start('imagemin', 'fonts');
+    gulp.start('js-build', 'imagemin', 'fonts');
 });
 
 gulp.task('inject', () =>
@@ -100,7 +132,7 @@ gulp.task('inject', () =>
         .pipe(gulp.dest('src/'))
 );
 
-gulp.task('server', ['inject'], () => {
+gulp.task('server', ['js', 'inject'], () => {
     browserSync.init({
         server: {
             baseDir: 'src'
@@ -108,10 +140,16 @@ gulp.task('server', ['inject'], () => {
     });
 
     gulp.watch('src/**/*').on('change', browserSync.reload);
-    gulp.watch('src/js/**/*.js').on('change', event => {
-        gulp.src(event.path)
+    gulp.watch('src/js/app-es6/**/*.js').on('change', event => {
+        gulp.src('src/js/app-es6/**/*.js')
             .pipe(jshint({ esversion: 6 }))
-            .pipe(jshint.reporter(jshintStylish));
+            .pipe(jshint.reporter(jshintStylish))
+             .pipe(babel({
+                presets: ['es2015'],
+                sourceMaps: true
+            }))
+            .on('error', console.error.bind(console))
+            .pipe(gulp.dest('src/js/app/'));
     });
     gulp.watch('src/css/**/*.css', ['css']);
 });
