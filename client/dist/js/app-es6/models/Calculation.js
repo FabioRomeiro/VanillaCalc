@@ -1,11 +1,11 @@
-export class Calculation {
+class Calculation {
 
   constructor(date=new Date(), expression='', result='') {
       this._date = new Date(date.getTime());
       this._expression = expression;
       this._result = result;
 
-      Object.freeze(this);
+      Object.freeze(this); 
   }
 
   set date(ndate) {

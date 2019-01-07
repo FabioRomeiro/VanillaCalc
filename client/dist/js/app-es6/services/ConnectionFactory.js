@@ -2,10 +2,10 @@ const stores = ['calculations'];
 const dbName = 'vanillaframe';
 const version = 2;
 
-let connection = null;
-let close = null;
+var connection = null;
+var close = null;
 
-export class ConnectionFactory {
+class ConnectionFactory {
 
     constructor() {
         throw new Error('Cannot instantiate ConnectionFactory because it is a static class');
@@ -28,7 +28,7 @@ export class ConnectionFactory {
                     
                     close = connection.close.bind(connection);
                     connection.close = () => {
-                        throw new Error('You can only close the connection directly by the function ConnectionFactory.closeConnection')
+                        throw new Error('You can only close the connection directly by the function ConnectionFactory.closeConnection');
                     };
                 }
                 resolve(connection);

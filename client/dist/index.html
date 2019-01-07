@@ -4,10 +4,7 @@
     <meta charset="utf-8">
     <title>Vanilla Calc</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.min.css">
-    <!-- inject:polyfill:js -->
-    <script src="js/app/polyfill/fetch.js"></script>
-    <!-- endinject -->
+    <link rel="stylesheet" href="css/style.min.css">
   </head>
   <body>
     <div class="vanilla-content">
@@ -67,145 +64,166 @@
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
-              data-type="operator"
-              onclick="calculationController.processKey('(')" disabled>
-              (
+              onclick="calculationController.processKey('(')"
+              data-type="operator" disabled>(
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
-              data-type="operator"
-              onclick="calculationController.processKey(')')" disabled>
-              )
+              onclick="calculationController.processKey(')')"
+              data-type="operator" disabled>)
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
-              data-type="operator"
-              onclick="calculationController.processKey('%')" disabled>
-              %
+              onclick="calculationController.processKey('%')"
+              data-type="operator" disabled>%
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
-              data-type="cleaner"
-              onclick="calculationController.processKey('CE')">
-              CE
+              onclick="calculationController.processKey('CE')"
+              data-type="cleaner">CE
             </button>
           </div>
           <div class="vanilla-calculator__keyline">
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
-              data-type="number"
-              onclick="calculationController.processKey('7')">7
+              onclick="calculationController.processKey('7')"
+              data-type="number">7
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
-              data-type="number"
-              onclick="calculationController.processKey('8')">8
+              onclick="calculationController.processKey('8')"
+              data-type="number">8
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
-              data-type="number"
-              onclick="calculationController.processKey('9')">9
+              onclick="calculationController.processKey('9')"
+              data-type="number">9
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
-              data-type="operator"
-              onclick="calculationController.processKey('/')">/
+              onclick="calculationController.processKey('/')"
+              data-type="operator">/
             </button>
           </div>
           <div class="vanilla-calculator__keyline">
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
-              data-type="number"
-              onclick="calculationController.processKey('4')">4
+              onclick="calculationController.processKey('4')"
+              data-type="number">4
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
-              data-type="number"
-              onclick="calculationController.processKey('5')">5
+              onclick="calculationController.processKey('5')"
+              data-type="number">5
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
-              data-type="number"
-              onclick="calculationController.processKey('6')">6
+              onclick="calculationController.processKey('6')"
+              data-type="number">6
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
-              data-type="operator"
-              onclick="calculationController.processKey('x')">x
+              onclick="calculationController.processKey('x')"
+              data-type="operator">x
             </button>
           </div>
           <div class="vanilla-calculator__keyline">
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
-              data-type="number"
-              onclick="calculationController.processKey('3')">3
+              onclick="calculationController.processKey('3')"
+              data-type="number">3
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
-              data-type="number"
-              onclick="calculationController.processKey('2')">2
+              onclick="calculationController.processKey('2')"
+              data-type="number">2
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
-              data-type="number"
-              onclick="calculationController.processKey('1')">1
+              onclick="calculationController.processKey('1')"
+              data-type="number">1
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
-              data-type="operator"
-              onclick="calculationController.processKey('-')">-
+              onclick="calculationController.processKey('-')"
+              data-type="operator">-
             </button>
           </div>
           <div class="vanilla-calculator__keyline">
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
-              data-type="number"
-              onclick="calculationController.processKey('0')">0
+              onclick="calculationController.processKey('0')"
+              data-type="number">0
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--number-button"
               type="button"
-              data-type="number"
-              onclick="calculationController.processKey('.')">.
+              onclick="calculationController.processKey('.')"
+              data-type="number">.
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--equals-button"
               type="button"
-              data-type="equals"
-              onclick="calculationController.processKey('=')">=
+              onclick="calculationController.processKey('=')"
+              data-type="equals">=
             </button>
             <button
               class="vanilla-calculator__button vanilla-calculator--operation-button"
               type="button"
-              data-type="operator"
-              onclick="calculationController.processKey('+')">+
+              onclick="calculationController.processKey('+')"
+              data-type="operator">+
             </button>
           </div>
         </div>
       </section>
     </div>
-    <script src="../node_modules/systemjs/dist/system.js"></script>
-    <script>
-      System.defaultJSExtensions = true;
-      System.import('js/app/boot').catch(function(err) {
-        console.log(err);
-      });
+    <!-- <script src="js/app/lib/system.js"></script> -->
+    <!-- <script src="./dist/js/index.js"></script> -->
+    <!-- inject:models:js -->
+    <script src="js/app/models/Calculation.js"></script>
+    <script src="js/app/models/DefaultCalculation.js"></script>
+    <script src="js/app/models/Display.js"></script>
+    <script src="js/app/models/ListCalculations.js"></script>
+    <!-- endinject -->
+    <!-- inject:controllers:js -->
+    <script src="js/app/controllers/CalculationController.js"></script>
+    <!-- endinject -->
+    <!-- inject:helpers:js -->
+    <script src="js/app/helpers/Bind.js"></script>
+    <script src="js/app/helpers/CalculationHelper.js"></script>
+    <!-- endinject -->
+    <!-- inject:views:js -->
+    <script src="js/app/views/View.js"></script>
+    <script src="js/app/views/CalculationView.js"></script>
+    <script src="js/app/views/DisplayView.js"></script>
+    <!-- endinject -->
+    <!-- inject:services:js -->
+    <script src="js/app/services/CalculationService.js"></script>
+    <script src="js/app/services/ConnectionFactory.js"></script>
+    <script src="js/app/services/HttpService.js"></script>
+    <script src="js/app/services/ProxyFactory.js"></script>
+    <!-- endinject -->
+    <!-- inject:dao:js -->
+    <script src="js/app/dao/CalculationDao.js"></script>
+    <!-- endinject -->
+    <script type="text/javascript">
+      var calculationController = new CalculationController();
     </script>
   </body>
 </html>

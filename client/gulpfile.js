@@ -72,7 +72,6 @@ gulp.task('js-build', () =>
                 'dist/js/app-es6/polyfill',
                 'dist/js/app-es6/lib/system.js'
             ],
-            plugins: ['transform-es2015-modules-systemjs'],
             sourceMaps: true
         }))
         .on('error', console.error.bind(console))

@@ -1,9 +1,4 @@
-import {HttpService} from './HttpService';
-import {ConnectionFactory} from './ConnectionFactory';
-import {CalculationDao} from '../dao/CalculationDao';
-import {Calculation} from '../models/Calculation';
-
-export class CalculationService {
+class CalculationService {
 
     constructor() {
         this._http = new HttpService();
@@ -68,7 +63,7 @@ export class CalculationService {
             .getConnection()
             .then(connection => new CalculationDao(connection))
             .then(dao => dao.add(calculation))
-            .then(() => {
+            /*.then(() => {
 
                 let content = {
                     date: calculation.date,
@@ -81,7 +76,7 @@ export class CalculationService {
                     .catch(err => {
                         throw new Error(err); 
                     });
-            });
+            })*/;
     }
 
     clearCalculations() {

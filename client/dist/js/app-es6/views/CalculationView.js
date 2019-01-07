@@ -1,6 +1,4 @@
-import {View} from './View';
-
-export class CalculationView extends View{
+class CalculationView extends View{
     
     constructor(element) {
         super(element);
@@ -12,7 +10,7 @@ export class CalculationView extends View{
                 ${model.calculations.map(item => `
                     <li class="calculation-list__item">
                         <span class="item-date">
-                            ${this.getDateTemplate(item.date)} - ${this.getTimeTemplate(item.date)}
+                            ${this.getDateTemplate(item.date)} - ${this.getTimeTemplate(item.date)} 
                         </span>
                         <span class="item-calc">
                             ${item.expression} = ${item.result}

@@ -1,14 +1,11 @@
-import {currentInstance} from './controllers/CalculationController';
 
-let calculationController = currentInstance();
+// console.log('ta');
 
-let $ = document.querySelector.bind(document); 
+// document.querySelector('[action=history-mode]').onclick = calculationController.toggleHistoryMode.bind(calculationController);
+// document.querySelector('[action=import-calculations]').onclick = calculationController.importCalculations.bind(calculationController);
+// document.querySelector('[action=ordenate-history]').onclick = calculationController.orderCalculationHistory.bind(calculationController);
+// document.querySelector('[action=delete-history]').onclick = calculationController.deleteCalculationHistory.bind(calculationController);
 
-$('[action=history-mode]').onclick = calculationController.toggleHistoryMode.bind(calculationController);
-$('[action=import-calculations]').onclick = calculationController.importCalculations.bind(calculationController);
-$('[action=ordenate-history]').onclick = calculationController.orderCalculationHistory.bind(calculationController);
-$('[action=delete-history]').onclick = calculationController.deleteCalculationHistory.bind(calculationController);
-
-$('[type=button]').onclick = function(e) { 
-    console.log(e.target);
-};
+// document.querySelector('[type=button]').onclick = function(e) { 
+//     console.log(e.target);
+// };

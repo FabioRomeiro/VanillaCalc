@@ -1,4 +1,4 @@
-export class ListCalculations {
+class ListCalculations {
   
   constructor() {
     this._calculations = [];

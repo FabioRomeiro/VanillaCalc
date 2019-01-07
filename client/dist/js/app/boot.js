@@ -1,2 +1,2 @@
-"use strict";System.register([],function(t,o){return{setters:[],execute:function(){System.register(["./controllers/CalculationController"],function(t,o){var e,n,c;return{setters:[function(t){e=t.currentInstance}],execute:function(){n=e(),(c=document.querySelector.bind(document))("[action=history-mode]").onclick=n.toggleHistoryMode.bind(n),c("[action=import-calculations]").onclick=n.importCalculations.bind(n),c("[action=ordenate-history]").onclick=n.orderCalculationHistory.bind(n),c("[action=delete-history]").onclick=n.deleteCalculationHistory.bind(n),c("[type=button]").onclick=function(t){console.log(t.target)}}}})}}});
+"use strict";
 //# sourceMappingURL=boot.js.map

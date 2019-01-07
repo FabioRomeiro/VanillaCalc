@@ -1,13 +1,3 @@
-import {CalculationService} from '../services/CalculationService';
-import {DefaultCalculation} from '../models/DefaultCalculation';
-import {CalculationView} from '../views/CalculationView';
-import {Bind} from '../helpers/Bind';
-import {ListCalculations} from '../models/ListCalculations';
-import {Display} from '../models/Display';
-import {DisplayView} from '../views/DisplayView';
-import {CalculationHelper} from '../helpers/CalculationHelper';
-import {Calculation} from '../models/Calculation';
-
 class CalculationController {
 
    constructor(){
@@ -160,7 +150,7 @@ class CalculationController {
       this.saveCalculation();
    }
 
-   deleteCalculationHistory() {
+   deleteCalculationHistory() { 
 
       this._service
           .clearCalculations()
@@ -176,10 +166,3 @@ class CalculationController {
       this._calculationView.toggleHistoryMode(this._calculatorBody);
    }
 }
-
-let calculationController = new CalculationController();
-
-export function currentInstance() {
-  
-  return calculationController;
-};

@@ -1,4 +1,4 @@
-export class View {
+class View {
 
     constructor(element) {
         this._element = element;
@@ -9,6 +9,6 @@ export class View {
     }
 
     update(model) {
-        this._element.innerHTML = this.template(model);
+        this._element.innerHTML = this.template(model); 
     }
 }

@@ -1,4 +1,4 @@
-export class ProxyFactory {
+class ProxyFactory {
 
     constructor() {
         throw new Error('Cannot instantiate ProxyFactory class because it is a static class');
@@ -29,6 +29,6 @@ export class ProxyFactory {
     }
 
     static _isFunction(property) {
-        return typeof (property) == typeof (Function)
+        return typeof (property) == typeof (Function);
     }
 }
