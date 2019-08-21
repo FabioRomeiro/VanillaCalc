@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Vanilla Calc</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.min.css">
+  </head>
+  <body>
+    <div class="vanilla-content">
+      <header class="vanilla-header">
+        <h1 class="vanilla-header__title">< vanilla-calc ></h1>
+      </header>
+
+      <div class="vanilla-info-trigger">
+        <div class="vanilla-info-trigger__arrow"></div>
+      </div>
+
+      <nav class="vanilla-nav vanilla-nav--off"></nav>
+
+      <section class="vanilla-calculator" data-calc>
+        <div 
+          class="vanilla-calculator__lateral-button vanilla-calculator__lateral-button--history" 
+          title="Check calculations history"
+          action="history-mode"
+          onclick="calculationController.toggleHistoryMode()">
+        </div>
+
+        <div 
+          class="vanilla-calculator__lateral-button vanilla-calculator__lateral-button--sort" 
+          title="Ordenate history"
+          action="ordenate-history"
+          onclick="calculationController.orderCalculationHistory()">
+        </div>
+
+        <div 
+          class="vanilla-calculator__lateral-button vanilla-calculator__lateral-button--delete" 
+          title="Delete history"
+          action="delete-history"
+          onclick="calculationController.deleteCalculationHistory()">
+        </div>
+
+        <div class="vanilla-calculator__info-head">
+          <div class="head-index">
+            <h4>Date</h3>
+          </div>
+          <div class="head-index">
+            <h4>Calculation</h3>
+          </div>
+        </div>
+        <div data-calc-history class="vanilla-calculator__history-display"></div>
+
+        <div class="vanilla-calculator__display" data-display></div>
+
+        <div class="vanilla-calculator__keyboard">
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              onclick="calculationController.processKey('(')"
+              data-type="operator" disabled>(
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              onclick="calculationController.processKey(')')"
+              data-type="operator" disabled>)
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              onclick="calculationController.processKey('%')"
+              data-type="operator" disabled>%
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              onclick="calculationController.processKey('CE')"
+              data-type="cleaner">CE
+            </button>
+          </div>
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              onclick="calculationController.processKey('7')"
+              data-type="number">7
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              onclick="calculationController.processKey('8')"
+              data-type="number">8
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              onclick="calculationController.processKey('9')"
+              data-type="number">9
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              onclick="calculationController.processKey('/')"
+              data-type="operator">/
+            </button>
+          </div>
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              onclick="calculationController.processKey('4')"
+              data-type="number">4
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              onclick="calculationController.processKey('5')"
+              data-type="number">5
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              onclick="calculationController.processKey('6')"
+              data-type="number">6
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              onclick="calculationController.processKey('x')"
+              data-type="operator">x
+            </button>
+          </div>
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              onclick="calculationController.processKey('3')"
+              data-type="number">3
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              onclick="calculationController.processKey('2')"
+              data-type="number">2
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              onclick="calculationController.processKey('1')"
+              data-type="number">1
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              onclick="calculationController.processKey('-')"
+              data-type="operator">-
+            </button>
+          </div>
+          <div class="vanilla-calculator__keyline">
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              onclick="calculationController.processKey('0')"
+              data-type="number">0
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--number-button"
+              type="button"
+              onclick="calculationController.processKey('.')"
+              data-type="number">.
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--equals-button"
+              type="button"
+              onclick="calculationController.processKey('=')"
+              data-type="equals">=
+            </button>
+            <button
+              class="vanilla-calculator__button vanilla-calculator--operation-button"
+              type="button"
+              onclick="calculationController.processKey('+')"
+              data-type="operator">+
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- <script src="js/app/lib/system.js"></script> -->
+    <!-- <script src="./dist/js/index.js"></script> -->
+    <!-- inject:models:js -->
+    <script src="js/app/models/Calculation.js"></script>
+    <script src="js/app/models/DefaultCalculation.js"></script>
+    <script src="js/app/models/Display.js"></script>
+    <script src="js/app/models/ListCalculations.js"></script>
+    <!-- endinject -->
+    <!-- inject:controllers:js -->
+    <script src="js/app/controllers/CalculationController.js"></script>
+    <!-- endinject -->
+    <!-- inject:helpers:js -->
+    <script src="js/app/helpers/Bind.js"></script>
+    <script src="js/app/helpers/CalculationHelper.js"></script>
+    <!-- endinject -->
+    <!-- inject:views:js -->
+    <script src="js/app/views/View.js"></script>
+    <script src="js/app/views/CalculationView.js"></script>
+    <script src="js/app/views/DisplayView.js"></script>
+    <!-- endinject -->
+    <!-- inject:services:js -->
+    <script src="js/app/services/CalculationService.js"></script>
+    <script src="js/app/services/ConnectionFactory.js"></script>
+    <script src="js/app/services/HttpService.js"></script>
+    <script src="js/app/services/ProxyFactory.js"></script>
+    <!-- endinject -->
+    <!-- inject:dao:js -->
+    <script src="js/app/dao/CalculationDao.js"></script>
+    <!-- endinject -->
+    <script type="text/javascript">
+      var calculationController = new CalculationController();
+    </script>
+  </body>
+</html>

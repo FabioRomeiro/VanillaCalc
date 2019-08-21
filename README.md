@@ -1,12 +1,16 @@
-# Vanilla Calc
+# [Vanilla Calc](http://vanillacalc.fabioromeiro.com.br)
 
 ### Author: Fábio Lucas Romeiro
 
-1. Open two terminals, in the first one, we're gonna run the API:
-2. ```cd server```
-3. ```npm install```
-4. ```npm start```
-5. At the second terminal we're gonna run the front-end:
-6. ```cd client```
-7. ```npm install```
-8. ```npm run dev```
+This is a website developed to study Object Oriented Javascript.
+
+---
+
+### http://vanillacalc.fabioromeiro.com.br
+
+---
+
+### Running as developer
+1. In the terminal:
+2. ```npm install```
+3. ```npm run dev```
